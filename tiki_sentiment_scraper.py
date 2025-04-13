@@ -39,9 +39,10 @@ class TikiSentimentScraper:
                 'discount_rate': data.get('discount_rate', 0),
                 'rating_average': data.get('rating_average', 0),
                 'review_count': data.get('review_count', 0),
-                'category_name': data.get('category', {}).get('name', ''),
+                'category_name': data.get('categories', {}).get('name', ''),
                 'brand_name': data.get('brand', {}).get('name', ''),
-                'url': data.get('url_path', '')
+                'url': data.get('url_path', ''),
+                'image_url': data.get('thumbnail_url', ''),
             }
 
             return product_info
@@ -186,17 +187,18 @@ class TikiSentimentScraper:
                 product_info_list.append(product_info)
 
                 # Lấy đánh giá
-                reviews = self.get_reviews(product_id, limit=reviews_per_product)
-                processed_reviews = self.process_reviews(reviews)
-                all_reviews.extend(processed_reviews)
+                # reviews = self.get_reviews(product_id, limit=reviews_per_product)
+                # processed_reviews = self.process_reviews(reviews)
+                # all_reviews.extend(processed_reviews)
 
                 # Thêm độ trễ để tránh bị chặn
                 # time.sleep(random.uniform(1, 2))
 
         # Tạo DataFrame
-        reviews_df = pd.DataFrame(all_reviews)
+        # reviews_df = pd.DataFrame(all_reviews)
         products_df = pd.DataFrame(product_info_list)
 
+        reviews_df = []
         return reviews_df, products_df
 
     def save_dataset(self, reviews_df, products_df, output_dir='.'):

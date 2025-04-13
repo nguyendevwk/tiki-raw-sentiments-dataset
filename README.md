@@ -2,6 +2,8 @@
 
 This project collects and analyzes sentiment from product reviews on the Tiki e-commerce platform.
 
+#### Phạm Nguyễn - nguyendevwk
+
 ## Requirements
 
 -   Python 3.8+
